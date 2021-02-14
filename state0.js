@@ -1,15 +1,32 @@
-var demo = {};
+var demo = {}, centerx = 1500/2, centery = 1000/2, potato, speed = 4;
 demo.state0 = function(){};
 demo.state0.prototype = {
-  preload: function(){},
+  preload: function(){
+    game.load.image('potato', 'assets/sprites/potato.png');
+  },
   create: function(){
     game.stage.backgroundColor = '#eb4034';
     console.log('state0');
     addChangeStateEventListeners();
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
+    potato = game.add.sprite(centerx, centery, 'potato');
+    potato.anchor.setTo(0.5,0.5)
   },
-  update: function(){}
+  update: function(){
+    if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+      potato.x += speed;
+    }
+    else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+      potato.x -= speed;
+    }
+    if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+      potato.y -= speed;
+    }
+    else if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+      potato.y += speed;
+    }
+  }
 };
 
 function changeState(i, stateNum){
